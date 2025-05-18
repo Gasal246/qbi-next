@@ -36,6 +36,7 @@ export default function RootLayout({
             <LogoComponent />
             <HeaderButtons />
           </div>
+          
           {children}
           <Toaster theme="light" />
         </div>

@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -11,6 +10,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { registerEmployer } from "@/query/empolyer-functions/functions"
 import { toast } from "sonner"
+import LoaderSpin from "./LoaderSpin"
 
 const formSchema = z.object({
     name: z.string().min(2, {message: "Name must be at least 2 characters.",}),
@@ -68,6 +68,7 @@ const HireTalendForm = ({ id }: { id: string }) => {
 
     return (
         <div className="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 pt-5 pb-10" id={id}>
+            {loading && <LoaderSpin />}
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                     <div className="flex w-full flex-wrap">

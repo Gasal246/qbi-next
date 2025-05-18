@@ -38,6 +38,7 @@ const Section = ({ children, className, id }: { children: React.ReactNode, class
 const LandingSection = () => {
     return (
         <div className='pb-40'>
+            
             {/* Header Title */}
             <Section className="w-full px-10 lg:px-22 py-14">
                 <h1 className="text-4xl font-bold text-white">Empowering Careers. Elevating Workforces.</h1>

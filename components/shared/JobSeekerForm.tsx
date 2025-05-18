@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -13,6 +12,7 @@ import { motion } from "framer-motion";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
 import { registerUser } from "@/query/user-functions/functions";
+import LoaderSpin from "./LoaderSpin";
 
 const formSchema = z.object({
     name: z.string().min(2, {
@@ -152,6 +152,7 @@ const JobSeekerForm = ({ id }: { id: string }) => {
 
     return (
         <div className="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 pt-5 pb-10" id={id}>
+            {loading && <LoaderSpin />}
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                     <div className="flex w-full flex-wrap">
