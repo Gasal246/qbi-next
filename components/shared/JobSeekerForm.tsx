@@ -12,6 +12,7 @@ import { PlusIcon, TrashIcon } from "lucide-react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
+import { registerUser } from "@/query/user-functions/functions";
 
 const formSchema = z.object({
     name: z.string().min(2, {
@@ -103,8 +104,50 @@ const JobSeekerForm = ({ id }: { id: string }) => {
         },
     })
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        const formData = new FormData();
+        formData.append("body", JSON.stringify({
+            name: values.name,
+            phone: values.phone,
+            email: values.email,
+            whatsapp: values.whatsapp,
+            experiences,
+            qualifications
+        }));
+
+        setLoading(true);
+        try {
+            const res = await registerUser(formData);
+            if(res?.status === 302) {
+                toast("User already exist.", {
+                    description: "User with same email already exist.",
+                    duration: 3000
+                });
+                return;
+            } else if ( res?.status === 303 ) {
+                toast("User already exist.", {
+                    description: "User with same phone number already exist.",
+                    duration: 3000
+                })
+                return;
+            }
+            if (res?.status === 200) {
+                toast("User created successfully.", {
+                    duration: 3000
+                });
+            }
+        } catch (error: any) {
+            console.log(error);
+            toast("Something went wrong.", {
+                description: "Please try again later.",
+                duration: 3000
+            });
+        } finally {
+            setLoading(false);
+            form.reset();
+            setExperiences([]);
+            setQualifications([]);
+        }
     }
 
     return (

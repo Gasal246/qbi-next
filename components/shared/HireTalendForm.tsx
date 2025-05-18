@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -8,6 +9,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from 
 import { Input } from "@/components/ui/input"
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { registerEmployer } from "@/query/empolyer-functions/functions"
+import { toast } from "sonner"
 
 const formSchema = z.object({
     name: z.string().min(2, {message: "Name must be at least 2 characters.",}),
@@ -31,8 +34,36 @@ const HireTalendForm = ({ id }: { id: string }) => {
         },
     })
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        const formData = new FormData();
+        formData.append("body", JSON.stringify(values));
+        setLoading(true);
+        try {
+            const res = await registerEmployer(formData);
+            if(res?.status === 302) {
+                toast("Employer already exist.", {
+                    description: "Employer with same email already exist.",
+                    duration: 3000
+                })
+                return;
+            } else if ( res?.status === 303 ) {
+                toast("Employer already exist.", {
+                    description: "Employer with same phone number already exist.",
+                    duration: 3000
+                })
+                return;
+            }
+            if(res?.status === 200) {
+                toast("Employer created successfully.", {
+                    duration: 3000
+                });
+            }
+        } catch (error: any) {
+            console.log(error);
+        } finally {
+            setLoading(false);
+            form.reset();
+        }
     }
 
     return (
