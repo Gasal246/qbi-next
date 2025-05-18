@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "QBI",
-  description: "site by Muhammed Gasal [ www.muhammedgasal.com ], This web application is designed for an agency to bridge the gap between employees and employers, functioning similarly to LinkedIn. Users can register as either job seekers or recruiters. Job seekers can create detailed profiles showcasing their skills, experience, and resumes, while recruiters can post job openings and search for potential candidates based on skills and job roles. The platform supports profile browsing, messaging, and application tracking to streamline the hiring process",
+  description: "India's trusted platform for job seekers, employers, and workforce partners. QBI Employment offers verified job opportunities, tailored recruitment solutions, and expert workforce support across India. Whether you're seeking your next career move or hiring top talent, QBI ensures trust, accuracy, and results. site by Muhammed Gasal [ www.muhammedgasal.com ], This web application is designed for an agency to bridge the gap between employees and employers, functioning similarly to LinkedIn. Users can register as either job seekers or recruiters. Job seekers can create detailed profiles showcasing their skills, experience, and resumes, while recruiters can post job openings and search for potential candidates based on skills and job roles. The platform supports profile browsing, messaging, and application tracking to streamline the hiring process",
 };
 
 export default function RootLayout({
